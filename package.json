@@ -1,0 +1,6 @@
+{
+  "name": "civictrack",
+  "version": "1.0.0",
+  "description": "CivicTrack demo: civic grievance and infrastructure triage (static front end, demo mode)",
+  "scripts": { "start": "npx serve ." }
+}

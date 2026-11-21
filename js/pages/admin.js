@@ -1,0 +1,9 @@
+// Administrator dashboard and CSV report
+function admin(){if(role()!='admin')return gate();const k=counts(),dep=[...new Set(Object.values(CATS))];
+return`<h2>Admin dashboard</h2><div class="g g4"><div class="card stat"><b>${k.t}</b><span>All complaints</span></div><div class="card stat"><b>${S.c.filter(esc2).length}</b><span>Escalated (past deadline)</span></div><div class="card stat"><b>${S.users.length}</b><span>Accounts</span></div><div class="card stat"><b>${dep.length}</b><span>Departments</span></div></div>
+<div class="g g2"><div class="card"><h3>Accounts</h3><div class="wrap"><table class="tbl"><tr><th>Name</th><th>Email</th><th>Role</th></tr>${S.users.map((u,i)=>`<tr><td>${esc(u.n)}</td><td>${esc(u.e)}</td><td><select aria-label="Role" onchange="S.users[${i}].r=this.value;save()">${['citizen','authority','admin'].map(r=>`<option ${u.r==r?'selected':''}>${r}</option>`).join('')}</select></td></tr>`).join('')}</table></div></div>
+<div class="card"><h3>Departments, open load</h3>${bars(group(S.c.filter(open),c=>c.dept))}<button class="btn o s" onclick="csv()">Download report (CSV)</button></div></div>
+<div class="card"><h3>Escalated complaints</h3>${table(S.c.filter(esc2).slice(0,10))}</div><div class="card"><h3>Platform activity</h3>${S.log.slice(0,8).map(x=>`<p style="margin:4px 0">${esc(x)}</p>`).join('')}</div>`}
+function csv(){const r=['id,title,category,severity,priority,department,status,days'].concat(S.c.map(c=>[c.id,c.title,c.cat,c.sev,score(c),c.dept,c.status,days(c).toFixed(1)].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')));const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([r.join('\n')],{type:'text/csv'}));a.download='civictrack-report.csv';a.click()}
+// Shared access gate
+const gate=()=>`<div class="card"><h3>Access restricted</h3><p>This page needs an authority or administrator account.</p><a class="btn" href="#login">Log in</a></div>`;

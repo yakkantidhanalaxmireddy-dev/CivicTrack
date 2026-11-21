@@ -1,0 +1,2 @@
+// About page
+function about(){return`<div class="card"><h2>About CivicTrack</h2><p>CivicTrack connects citizens and government authorities through one transparent complaint system: report, analyze, assign, resolve.</p><p><b>Demo mode.</b> This build runs entirely in your browser with local sample data. The analysis is a simulated rules engine, not real AI. The full React, Express, MongoDB and JWT stack from the brief is the production target; demo data and logic here are kept separate from it.</p></div>`}
